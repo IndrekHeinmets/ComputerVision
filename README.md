@@ -1,7 +1,7 @@
  # Setup Instructions:
  * Clone the whole repository.
  * Install requirements by running: `pip install -r setup\requirements.txt`.
- * OR
+ OR
  * Create a Conda environment with requirements by running: `conda env create -f setup\cv_venv.yml`.
  
  # Virtual Mouse Instructions:
