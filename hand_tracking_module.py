@@ -1,7 +1,8 @@
-import cv2
 import mediapipe as mp
 import time
 import math
+import cv2
+
 
 class Hand_detector():
     def __init__(self, mode=False, max_hands=2, model_complexity=1, detection_conf=0.5, track_conf=0.5):
@@ -70,12 +71,12 @@ class Hand_detector():
 
     def fingers_up(self):
         fingers= []
-        # Thumb
+        # Thumb:
         if self.lm_list[self.tip_ids[0]][1] < self.lm_list[self.tip_ids[0] - 1][1]:
             fingers.append(1)
         else:
             fingers.append(0)
-        # 4 fingers
+        # 4 Fingers:
         for id in range(1, 5):
             if self.lm_list[self.tip_ids[id]][2] < self.lm_list[self.tip_ids[id] - 2][2]:
                 fingers.append(1)
@@ -105,9 +106,14 @@ def main():
         fps = 1 / (c_time - p_time)
         p_time = c_time
         cv2.putText(img, f'Fps: {int(fps)}', (10, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (234, 255, 0), 2)
-
         cv2.imshow('CV', img)
-        cv2.waitKey(1)
+        
+        # Exit if ESC Pressed or Window Closed:
+        if cv2.waitKey(1) == 27 or cv2.getWindowProperty('CV', cv2.WND_PROP_VISIBLE) < 1:
+            break
+    
+    cap.release()
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     main()
